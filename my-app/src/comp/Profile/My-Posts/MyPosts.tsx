@@ -1,13 +1,14 @@
 import React from "react";
 import classes from "./MyPosts.module.css";
 import Post from "./post/Post";
-import {posts} from "../../../index";
+import state from "./../../../redux/State"
+
 
 const MyPosts = () => {
 
 
 
-    let postsElements = posts
+    let postsElements = state.profilePage.posts
         .map(p => <Post message={p.message} likes={p.likes}/>)
 
     return (

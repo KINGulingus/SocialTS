@@ -1,4 +1,4 @@
-import React from "react";
+
 
 type MessageType = {
     id: number
@@ -27,6 +27,8 @@ type RootStateType={
     dialogsPage:DialogPageType
     sideBar:SidebarType
 }
+
+
 let state:RootStateType = {
     profilePage: {
         posts: [

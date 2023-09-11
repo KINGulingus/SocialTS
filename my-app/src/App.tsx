@@ -6,7 +6,9 @@ import Profile from "./comp/Profile/Profile";
 import Dialogs from "./comp/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
+
 const App = () => {
+
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
