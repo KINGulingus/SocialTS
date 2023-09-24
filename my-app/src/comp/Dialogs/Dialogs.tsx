@@ -1,14 +1,16 @@
 import React from "react";
 import classes from './Dialogs.module.css'
-import {NavLink} from "react-router-dom";
 import DialogItem from "./DialogItme/Item";
 import Message from "./Message/Message";
-import state from "../../redux/State";
+import {RootStateType} from "../../redux/State";
 
+interface DialogsProps{
+    state:RootStateType
+}
 
-
-const Dialogs= () => {
-
+//тут ты получаешь пропс и синтаксисом сразу раскрываешь его
+const Dialogs= (props:DialogsProps) => {
+const {state}=props;
 
     let dialogsElements = state.dialogsPage.dialogs.map(d=><DialogItem name={d.name} id={d.id}/> )
 

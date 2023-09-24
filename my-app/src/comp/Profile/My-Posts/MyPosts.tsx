@@ -1,11 +1,14 @@
 import React from "react";
 import classes from "./MyPosts.module.css";
 import Post from "./post/Post";
-import state from "./../../../redux/State"
+import {RootStateType} from "../../../redux/State";
 
+interface MyPostsProps{
+    state:RootStateType
+}
 
-const MyPosts = () => {
-
+const MyPosts = (props:MyPostsProps) => {
+const {state}=props
 
 
     let postsElements = state.profilePage.posts
