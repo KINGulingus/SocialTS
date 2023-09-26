@@ -5,12 +5,13 @@ import Nav from "./comp/NavBar/Nav";
 import Profile from "./comp/Profile/Profile";
 import Dialogs from "./comp/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {RootStateType} from "./redux/State";
+import {addPost, RootStateType} from "./redux/State";
 
 
 //пишем типизацию состояния. можно и через type.
 type AppProps = {
     state: RootStateType;
+    addPost:(postMessage:string)=>void
 }
 
 //здесь мы пишем что мы принимаем пропсы в которых есть state
@@ -28,7 +29,7 @@ const App = (props:AppProps) => {
                         {/*в Dialogs я принимаю по другому просто для наглядности, можешь поменять как тебе больше нравиться.*/}
                         {/*но сделай чтобы везде было одинаково */}
                         <Route path="/dialogs" element={<Dialogs state={state} />}/>
-                        <Route path="/profile" element={<Profile state={state}/>}/>
+                        <Route path="/profile" element={<Profile state={state} addPost={addPost}/>}/>
 
                     </Routes>
 

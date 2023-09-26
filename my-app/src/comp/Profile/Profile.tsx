@@ -1,10 +1,11 @@
 import React from "react";
 import MyPosts from "./My-Posts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {RootStateType} from "../../redux/State";
+import {addPost, RootStateType} from "../../redux/State";
 
 interface ProfileProps {
     state: RootStateType;
+    addPost:(postMessage:string)=>void
 }
 
 
@@ -13,7 +14,7 @@ const Profile= (props:ProfileProps) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts state={state} />
+            <MyPosts state={state}  addPost={addPost} />
         </div>
 
 
