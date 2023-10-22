@@ -5,19 +5,21 @@ import Nav from "./comp/NavBar/Nav";
 import Profile from "./comp/Profile/Profile";
 import Dialogs from "./comp/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {addPost, RootStateType} from "./redux/State";
+import store, {RootStateType, StoreType} from "./redux/State";
+import {ActionsType} from "./redux/State";
 
 
 //пишем типизацию состояния. можно и через type.
 type AppProps = {
-    state: RootStateType;
-    addPost:(postMessage:string)=>void
+    state: RootStateType
+    dispatch: (action: ActionsType) => void
+    store: StoreType
 }
 
 //здесь мы пишем что мы принимаем пропсы в которых есть state
-const App = (props:AppProps) => {
+const App = (props: AppProps) => {
     //тут мы разворачиваем пропсы чтобы удобнее использовать state. можно это не делать и обращаться к нему props.state
-    const { state } = props;
+    const {state} = props;
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -25,11 +27,8 @@ const App = (props:AppProps) => {
                 <Nav/>
                 <div className='app-wrapper-content'>
                     <Routes>
-                        {/*передаем данные в компоненты ниже. по такой же логике*/}
-                        {/*в Dialogs я принимаю по другому просто для наглядности, можешь поменять как тебе больше нравиться.*/}
-                        {/*но сделай чтобы везде было одинаково */}
-                        <Route path="/dialogs" element={<Dialogs state={state} />}/>
-                        <Route path="/profile" element={<Profile state={state} addPost={addPost}/>}/>
+                        <Route path="/dialogs" element={<Dialogs store={store} dispatch={props.dispatch}/>}/>
+                        <Route path="/profile" element={<Profile state={state} dispatch={props.dispatch}/>}/>
 
                     </Routes>
 
