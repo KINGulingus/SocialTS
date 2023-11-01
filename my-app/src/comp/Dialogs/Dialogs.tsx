@@ -3,7 +3,7 @@ import classes from './Dialogs.module.css'
 import DialogItem from "./DialogItme/Item";
 import Message from "./Message/Message";
 import {sendMessageDialogsAC,updNewMessageDialogAC} from "../../redux/dialogs-reducer";
-import {ActionsType, StoreType} from "../../redux/State";
+import {ActionsType, StoreType} from "../../redux/store";
 
 interface DialogsProps {
     store: StoreType

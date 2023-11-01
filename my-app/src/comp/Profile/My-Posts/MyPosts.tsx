@@ -2,7 +2,7 @@ import React, {useRef} from "react";
 import classes from "./MyPosts.module.css";
 import Post from "./post/Post";
 import {addPostAC, changePostAC} from "../../../redux/profile-reducer";
-import {ActionsType, ProfilePageType} from "../../../redux/State";
+import {ActionsType, ProfilePageType} from "../../../redux/store";
 
 interface MyPostsProps {
     profilePage: ProfilePageType
