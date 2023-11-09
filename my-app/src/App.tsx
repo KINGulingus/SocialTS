@@ -3,10 +3,10 @@ import './App.css';
 import Header from "./comp/Header/Header";
 import Nav from "./comp/NavBar/Nav";
 import Profile from "./comp/Profile/Profile";
-import Dialogs from "./comp/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import store, {RootStateType, StoreType} from "./redux/store";
+import {RootStateType, StoreType} from "./redux/store";
 import {ActionsType} from "./redux/store";
+import DialogsContainer from "./comp/Dialogs/DialogsContainer";
 
 
 //пишем типизацию состояния. можно и через type.
@@ -16,8 +16,7 @@ type AppProps = {
     store: StoreType
 }
 
-//здесь мы пишем что мы принимаем пропсы в которых есть state
-const App = (props: AppProps) => {
+const App: React.FC<AppProps> = ({ state, dispatch, store }) => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -25,8 +24,8 @@ const App = (props: AppProps) => {
                 <Nav/>
                 <div className='app-wrapper-content'>
                     <Routes>
-                        <Route path="/dialogs" element={<Dialogs store={props.store} dispatch={props.dispatch}/>}/>
-                        <Route path="/profile" element={<Profile profilePage={store.getState().profilePage} dispatch={props.dispatch}/>}/>
+                        <Route path="/dialogs" element={<DialogsContainer store={store} dispatch={dispatch}/>}/>
+                        <Route path="/profile" element={<Profile store={store}/>}/>
 
                     </Routes>
 

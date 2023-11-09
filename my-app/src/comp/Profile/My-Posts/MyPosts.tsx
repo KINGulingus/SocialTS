@@ -1,30 +1,30 @@
 import React, {useRef} from "react";
 import classes from "./MyPosts.module.css";
 import Post from "./post/Post";
-import {addPostAC, changePostAC} from "../../../redux/profile-reducer";
-import {ActionsType, ProfilePageType} from "../../../redux/store";
+import {PostType} from "../../../redux/store";
 
 interface MyPostsProps {
-    profilePage: ProfilePageType
-    dispatch: (action: ActionsType) => void
+    updateNewPostText: (updateNewtext: string) => void
+    addPost: () => void
+    posts: PostType[]
+    messageForNewPost: string
 }
 
 const MyPosts = (props: MyPostsProps) => {
-    const {profilePage} = props
 
-    let postsElements = profilePage.posts
+    let postsElements = props.posts
         .map(p => <Post message={p.message} likes={p.likes}/>)
 
     let newPostEl = useRef<HTMLTextAreaElement>(null)
 
-    const addPost = () => {
+    const onAddPost = () => {
         if (newPostEl.current !== null) {
-            props.dispatch(addPostAC(''))
+            props.addPost()
         }
     }
-    const onChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const onPostChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         let updateNewtext = event.currentTarget.value;
-        props.dispatch(changePostAC(updateNewtext))
+        props.updateNewPostText(updateNewtext)
     }
 
     return (
@@ -35,13 +35,13 @@ const MyPosts = (props: MyPostsProps) => {
                 <div>
                     <textarea
                         ref={newPostEl}
-                        value={profilePage.messageForNewPost}
-                        onChange={onChangeHandler}
+                        value={props.messageForNewPost}
+                        onChange={onPostChange}
                     />
 
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={onAddPost}>Add post</button>
                 </div>
             </div>
             <div className={classes.posts}>

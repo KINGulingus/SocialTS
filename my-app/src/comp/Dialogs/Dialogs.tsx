@@ -2,17 +2,16 @@ import React from "react";
 import classes from './Dialogs.module.css'
 import DialogItem from "./DialogItme/Item";
 import Message from "./Message/Message";
-import {sendMessageDialogsAC,updNewMessageDialogAC} from "../../redux/dialogs-reducer";
-import {ActionsType, StoreType} from "../../redux/store";
+import {DialogPageType} from "../../redux/store";
 
 interface DialogsProps {
-    store: StoreType
-    dispatch: (action: ActionsType) => void
+    updNewMessageDialog: (body: string) => void;
+    sendMessageDialogs: () => void;
+    dialogsPage: DialogPageType
 }
 
-//тут ты получаешь пропс и синтаксисом сразу раскрываешь его
 const Dialogs = (props: DialogsProps) => {
-    const state = props.store._state.dialogsPage;
+    const state = props.dialogsPage
 
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
 
@@ -24,11 +23,11 @@ const Dialogs = (props: DialogsProps) => {
 
 
     let onSendMessageClick = () => {
-        props.dispatch(sendMessageDialogsAC())
+        props.sendMessageDialogs()
     }
     let onNewMessageChange = (e: any) => {
         let body = e.target.value
-        props.store.dispatch(updNewMessageDialogAC(body))
+        props.updNewMessageDialog(body)
     }
 
     return (

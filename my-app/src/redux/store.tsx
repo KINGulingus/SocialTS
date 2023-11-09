@@ -10,7 +10,7 @@ type DialogType = {
     id: number
     name: string
 }
-type PostType = {
+export type PostType = {
     id: number
     message: string
     likes: number
@@ -26,9 +26,9 @@ export type DialogPageType = {
 }
 export type SidebarType = {}
 export type RootStateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogPageType
-    sideBar: SidebarType
+    profileReducer: ProfilePageType
+    dialogsReducer: DialogPageType
+    sidebarReducer: SidebarType
 }
 export type StoreType = {
     _state: RootStateType
@@ -47,7 +47,7 @@ export type ActionsType =
 
 const store: StoreType = {
     _state: {
-        profilePage: {
+        profileReducer: {
             posts: [
                 {id: 1, message: 'WADDUB BUDDY', likes: 33},
                 {id: 2, message: 'Oh !', likes: 88},
@@ -56,7 +56,7 @@ const store: StoreType = {
             ],
             messageForNewPost: 'Hello hihi'
         },
-        dialogsPage: {
+        dialogsReducer: {
             dialogs: [
                 {id: 1, name: "Gleb"},
                 {id: 2, name: "Slava"},
@@ -74,14 +74,14 @@ const store: StoreType = {
             newMessageBody: ''
         },
 
-        sideBar: {}
+        sidebarReducer: {}
     },
     _callSubscriber(state: RootStateType) {
         console.log('State Changed')
     },
 
     getState() {
-        return this._state
+        return store._state
     },
     subscribe(observer: (state: RootStateType) => void) {
         this._callSubscriber = observer
@@ -91,22 +91,22 @@ const store: StoreType = {
 
         let newPost = {
             id: 5,
-            message: this._state.profilePage.messageForNewPost,
+            message: this._state.profileReducer.messageForNewPost,
             likes: 0
         };
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.messageForNewPost = ''
+        this._state.profileReducer.posts.push(newPost)
+        this._state.profileReducer.messageForNewPost = ''
         this._callSubscriber(this._state)
     },
     updateNewText(newText: string) {
-        this._state.profilePage.messageForNewPost = newText
+        this._state.profileReducer.messageForNewPost = newText
         this._callSubscriber(this._state)
     },
 
     dispatch(action) {
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        this._state.sideBar = sidebarReducer(this._state.sideBar, action)
+        this._state.profileReducer = profileReducer(this._state.profileReducer, action)
+        this._state.dialogsReducer = dialogsReducer(this._state.dialogsReducer, action)
+        this._state.sidebarReducer = sidebarReducer(this._state.sidebarReducer, action)
         this._callSubscriber(this._state)
     }
 }
