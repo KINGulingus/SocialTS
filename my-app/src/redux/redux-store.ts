@@ -11,7 +11,7 @@ import {StoreType} from "./store";
      sidebarReducer
  })
 
-let store: StoreType = createStore(reducers);
-export default store
+export let store: StoreType = createStore(reducers);
+
 
 //10:58 42 samurai
