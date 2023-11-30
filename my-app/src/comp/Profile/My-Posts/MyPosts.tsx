@@ -10,21 +10,26 @@ interface MyPostsProps {
     messageForNewPost: string
 }
 
-const MyPosts = (props: MyPostsProps) => {
+const MyPosts: React.FC<MyPostsProps> = ({
+                                             updateNewPostText,
+                                             addPost,
+                                             posts,
+                                             messageForNewPost
+                                         }) => {
 
-    let postsElements = props.posts
+    let postsElements = posts
         .map(p => <Post message={p.message} likes={p.likes}/>)
 
     let newPostEl = useRef<HTMLTextAreaElement>(null)
 
     const onAddPost = () => {
         if (newPostEl.current !== null) {
-            props.addPost()
+            addPost()
         }
     }
     const onPostChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         let updateNewtext = event.currentTarget.value;
-        props.updateNewPostText(updateNewtext)
+        updateNewPostText(updateNewtext)
     }
 
     return (
@@ -35,7 +40,7 @@ const MyPosts = (props: MyPostsProps) => {
                 <div>
                     <textarea
                         ref={newPostEl}
-                        value={props.messageForNewPost}
+                        value={messageForNewPost}
                         onChange={onPostChange}
                     />
 

@@ -3,18 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import {store} from './redux/redux-store';
-import StoreContext from "./StoreContext";
+import {Provider} from "react-redux";
 
-const renderApp = () => {
-    ReactDOM.render(
-        <React.StrictMode>
-            <StoreContext.Provider value={store}>
+ReactDOM.render(
+    <React.StrictMode>
+        <Provider store={store}>
             <App/>
-                </StoreContext.Provider>
-        </React.StrictMode>,
-        document.getElementById('root')
-    );
-};
-
-renderApp();
-store.subscribe(renderApp);
+        </Provider>
+    </React.StrictMode>, document.getElementById('root'));

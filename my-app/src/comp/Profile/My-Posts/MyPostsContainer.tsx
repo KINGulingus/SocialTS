@@ -1,32 +1,30 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from "react";
 import {addPostAC, changePostAC} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
-import StoreContext from "../../../StoreContext";
+import {ActionsType} from "../../../redux/store";
+import {connect} from "react-redux";
+import {RootState} from "../../../redux/redux-store";
 
 
-const MyPostsContainer = () => {
-
-    return (
-        <StoreContext.Consumer>{
-            (store) => {
-
-                let state = store.getState().profileReducer
-                const addPost = () => {
-                    store.dispatch(addPostAC(''))
-                }
-
-                const onChangeHandler = (updateNewtext: string) => {
-                    let action = changePostAC(updateNewtext)
-                    store.dispatch(action)
-                }
-
-                return <MyPosts updateNewPostText={onChangeHandler}
-                                addPost={addPost}
-                                posts={state.posts}
-                                messageForNewPost={state.messageForNewPost}/>
-            }
-        }
-        </StoreContext.Consumer>
-    )
+let mapStateToProps = (state:RootState)=>{
+    return{
+        posts:state.profileReducer.posts,
+        messageForNewPost:state.profileReducer.messageForNewPost
+    }
 }
+
+let mapDispatchToProps =(dispatch:(action: ActionsType) => void)=>{
+    return{
+        updateNewPostText:(updateNewtext: string)=>{
+            let action = changePostAC(updateNewtext)
+            dispatch(action)
+        },
+        addPost:()=>{
+            dispatch(addPostAC(''))
+        }
+    }
+}
+
+const MyPostsContainer=connect(mapStateToProps,mapDispatchToProps)(MyPosts)
 export default MyPostsContainer;
