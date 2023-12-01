@@ -5,6 +5,7 @@ import Nav from "./comp/NavBar/Nav";
 import Profile from "./comp/Profile/Profile";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import DialogsContainer from "./comp/Dialogs/DialogsContainer";
+import UsersContainer from "./comp/Users/UsersContainer";
 
 const App: React.FC<any> = () => {
     return (
@@ -16,6 +17,7 @@ const App: React.FC<any> = () => {
                     <Routes>
                         <Route path="/dialogs" element={<DialogsContainer/>}/>
                         <Route path="/profile" element={<Profile/>}/>
+                        <Route path="/users" element={<UsersContainer/>}/>
 
                     </Routes>
 
