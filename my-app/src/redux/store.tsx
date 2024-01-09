@@ -1,6 +1,6 @@
 import {sendMessageDialogsAC, updNewMessageDialogAC} from "./dialogs-reducer";
 import {addPostAC, changePostAC} from "./profile-reducer";
-import {followAC, setUsersAC, unfollowAC} from "./users-reducer";
+import {followAC, setCurrentPageAC, setUsersAC, setUsersTotalCountAC, unfollowAC} from "./users-reducer";
 
 type MessageType = {
     id: number
@@ -28,11 +28,11 @@ export type UsersType = {
     id: number
     name: string
     status: string
-    photos:{
-        small:string
-        large:string
+    photos: {
+        small: string
+        large: string
     }
-    followed:boolean
+    followed: boolean
 }
 
 export type DialogPageType = {
@@ -56,3 +56,5 @@ export type ActionsType =
     | ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setUsersTotalCountAC>

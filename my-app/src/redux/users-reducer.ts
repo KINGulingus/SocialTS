@@ -1,11 +1,17 @@
 import {ActionsType, UsersType} from "./store";
 
-type InitialStateType={
-    users:Array<UsersType>
+type InitialStateType = {
+    users: Array<UsersType>,
+    pageSize: number,
+    totalUserCount: number,
+    currentPage: number
 }
 
-let initialState:InitialStateType = {
-    users: []
+let initialState: InitialStateType = {
+    users: [],
+    pageSize: 5,
+    totalUserCount: 0,
+    currentPage: 3
 };
 
 
@@ -32,11 +38,22 @@ export const usersReducer = (usersList = initialState, action: ActionsType) => {
                 })
             }
         case "SET-USERS":
-            return {...usersList,users:[...usersList.users,...action.users]}
+            return {...usersList, users: action.users}
+        case "SET-CURRENT-PAGE":
+            return {...usersList, currentPage: action.currentPage}
+        case "SET-USERS-TOTAL-COUNT":
+            return {...usersList, totalUserCount: action.count}
         default:
             return usersList
 
     }
+}
+
+export const setCurrentPageAC = (currentPage: number) => {
+    return {
+        type: 'SET-CURRENT-PAGE',
+        currentPage: currentPage
+    } as const
 }
 
 export const followAC = (userId: number) => {
@@ -55,5 +72,11 @@ export const setUsersAC = (users: Array<UsersType>) => {
     return {
         type: 'SET-USERS',
         users: users
+    } as const
+}
+export const setUsersTotalCountAC = (totalUserCount: number) => {
+    return {
+        type: 'SET-USERS-TOTAL-COUNT',
+        count: totalUserCount
     } as const
 }
