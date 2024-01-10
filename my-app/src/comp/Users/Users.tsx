@@ -1,48 +1,47 @@
-/*
-
-Это то как выглядило все до классовой компоненты
-
 import React from "react";
+import styles from "./Users.module.css";
+import userPhoto from "../../assets/images/user.jpg";
 import {UsersType} from "../../redux/store";
-import styles from './Users.module.css'
-import axios from "axios";
-import userPhoto from "../../assets/images/user.jpg"
-
 
 interface UsersProps {
     users: Array<UsersType>
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setUsers: (users: Array<UsersType>) => void
+    setTotalUsersCount:(totalCount:number)=>void
+    setCurrentPage: (currentPage: number) => void
+    pageSize: number,
+    totalUserCount: number,
+    onPageChanged:(pageNumber:number)=>void
+    currentPage:number
 }
 
-export const instance = axios.create({
-    withCredentials: true,
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    headers: {
-        "API-KEY": "67456724-8867-48c2-b789-63a99d888cba"
-    }
-});
+let Users = (props:UsersProps) => {
 
-const Users: React.FC<UsersProps> = ({
-                                         users,
-                                         follow,
-                                         unfollow,
-                                         setUsers
-                                     }) => {
-    let getUsers = () => {
-        if (users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                setUsers(response.data.items)
-            })
+    let pagesCount = Math.ceil(props.totalUserCount / props.pageSize)
+
+    let pages = [];
+
+    for (let i = 1; i <= pagesCount; i++) {
+        if (pages.length < 10) {
+            pages.push(i);
         }
+
     }
 
 
     return <div>
-        <button onClick={getUsers}>Get Users</button>
+        <div>
+            {pages.map(p => {
+                // @ts-ignore
+                return <span className={props.currentPage === p && styles.selectedPage}
+                             onClick={(e) => {
+                                 props.onPageChanged(p)
+                             }}>{p}</span>
+            })}
+        </div>
         {
-            users.map(u => <div key={u.id}>
+            props.users.map(u => <div key={u.id}>
               <span>
                   <div>
                     <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.userPhoto}
@@ -50,10 +49,10 @@ const Users: React.FC<UsersProps> = ({
                   </div>
                   <div>
                       {u.followed ? <button onClick={() => {
-                              unfollow(u.id)
+                             props.unfollow(u.id)
                           }}>Unfollow</button>
                           : <button onClick={() => {
-                              follow(u.id)
+                             props.follow(u.id)
                           }}>Follow</button>}
 
                   </div>
@@ -70,7 +69,8 @@ const Users: React.FC<UsersProps> = ({
                 </span>
             </div>)
         }
-    </div>
+    </div>;
 }
 
-export default Users*/
+
+export default Users

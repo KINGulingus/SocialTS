@@ -11,7 +11,7 @@ let initialState: InitialStateType = {
     users: [],
     pageSize: 5,
     totalUserCount: 0,
-    currentPage: 3
+    currentPage: 1
 };
 
 
