@@ -1,8 +1,17 @@
 import React from "react";
 import classes from "./ProfileInfo.module.css";
+import {ProfileType} from "../../../redux/store";
+import Preloader from "../../common/Preloader/Preloader";
 
+interface ProfileInfoProps{
+    profile: ProfileType
+}
 
-const ProfileInfo = () => {
+const ProfileInfo = (props:ProfileInfoProps) => {
+    if (!props.profile){
+        return <Preloader/>
+    }
+
     return (
         <div>
 
@@ -11,8 +20,10 @@ const ProfileInfo = () => {
                     src='https://papik.pro/uploads/posts/2021-11/thumbs/1636167572_24-papik-pro-p-scp-logotip-foto-25.jpg'/>
             </div>
             <div className={classes.descriptionBlock}>
-                ava + description
+                <img src={props.profile.photos.large}/>
+
             </div>
+            <span>{props.profile.aboutMe}</span>
 
         </div>
 

@@ -1,6 +1,13 @@
 import {sendMessageDialogsAC, updNewMessageDialogAC} from "./dialogs-reducer";
-import {addPostAC, changePostAC} from "./profile-reducer";
-import {followAC, setCurrentPageAC, setUsersAC, setUsersTotalCountAC, unfollowAC} from "./users-reducer";
+import {addPostAC, changePostAC, setUserProfile} from "./profile-reducer";
+import {
+    follow,
+    setCurrentPage,
+    toggleIsFetching,
+    setUsers,
+    unfollow,
+    setTotalUsersCount
+} from "./users-reducer";
 
 type MessageType = {
     id: number
@@ -18,6 +25,29 @@ export type PostType = {
 export type ProfilePageType = {
     posts: Array<PostType>
     messageForNewPost: string
+    profile:ProfileType
+}
+
+export type ProfileType = {
+    userId: number
+    aboutMe:string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+    photos: {
+        small: string
+        large: string
+    }
 }
 
 export type UsersPageType = {
@@ -53,8 +83,10 @@ export type ActionsType =
     | ReturnType<typeof changePostAC>
     | ReturnType<typeof updNewMessageDialogAC>
     | ReturnType<typeof sendMessageDialogsAC>
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unfollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setUsersTotalCountAC>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setUserProfile>
