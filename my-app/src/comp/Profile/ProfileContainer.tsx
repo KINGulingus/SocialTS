@@ -10,6 +10,12 @@ import {useParams} from "react-router-dom";
 
 interface MapStatePropsType {
     profile: ProfileType
+    match: {
+        params: {
+            userId: number;
+        };
+    }
+   ;
 }
 
 interface MapDispatchPropsType {
@@ -20,10 +26,9 @@ interface MapDispatchPropsType {
 type ProfileProps = MapStatePropsType & MapDispatchPropsType
 
 
-
 export function withRouter(Children:any) {
     return (props:ProfileProps) => {
-        const match = {params: useParams()};
+        const match  = {params: useParams()};
         return <Children {...props} match={match}/>
     }
 }
@@ -32,6 +37,7 @@ class ProfileContainer extends React.Component<ProfileProps, RootStateType> {
 
 
     componentDidMount() {
+      
         let userId= this.props.match.params.userId
         if(!userId){
             userId = 2

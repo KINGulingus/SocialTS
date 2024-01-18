@@ -8,6 +8,7 @@ import {
     unfollow,
     setTotalUsersCount
 } from "./users-reducer";
+import {setAuthUserData} from "./auth-reducer";
 
 type MessageType = {
     id: number
@@ -25,12 +26,12 @@ export type PostType = {
 export type ProfilePageType = {
     posts: Array<PostType>
     messageForNewPost: string
-    profile:ProfileType
+    profile: ProfileType
 }
 
 export type ProfileType = {
     userId: number
-    aboutMe:string
+    aboutMe: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
@@ -90,3 +91,4 @@ export type ActionsType =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setAuthUserData>

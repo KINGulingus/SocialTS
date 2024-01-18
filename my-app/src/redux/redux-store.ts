@@ -3,6 +3,7 @@ import {profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 import {usersReducer} from "./users-reducer";
+import {authReducer} from "./auth-reducer";
 
 // Определение типа для состояния хранилища
 //typeof сам генерит типизацию на основе reducers , не пиши any
@@ -15,7 +16,8 @@ let reducers = combineReducers({
     profileReducer,
     dialogsReducer,
     sidebarReducer,
-    usersReducer
+    usersReducer,
+    authReducer
 })
 
 export let store: StoreType = createStore(reducers);
