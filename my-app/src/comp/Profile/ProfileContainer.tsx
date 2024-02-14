@@ -2,10 +2,9 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {ProfileType, RootStateType} from "../../redux/store";
-import {setUserProfile} from "../../redux/profile-reducer";
+import {getUsesProfile} from "../../redux/profile-reducer";
 import {toggleIsFetching} from "../../redux/users-reducer";
 import {RootState} from "../../redux/redux-store";
-import axios from "axios";
 import {useParams} from "react-router-dom";
 
 interface MapStatePropsType {
@@ -19,7 +18,7 @@ interface MapStatePropsType {
 }
 
 interface MapDispatchPropsType {
-    setUserProfile: (profile: ProfileType) => void
+    getUsesProfile: (userId:number) => void
     toggleIsFetching: (isFetching: boolean) => void
 }
 
@@ -42,10 +41,7 @@ class ProfileContainer extends React.Component<ProfileProps, RootStateType> {
         if(!userId){
             userId = 2
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
-                this.props.setUserProfile(response.data)
-            })
+      this.props.getUsesProfile(userId)
     }
 
     render() {
@@ -66,7 +62,7 @@ const mapStateToProps = (state: RootState): MapStatePropsType => {
     } as MapStatePropsType
 }
 const WhitsUrlContainerComponent = withRouter(ProfileContainer)
-export default connect(mapStateToProps, {setUserProfile, toggleIsFetching})(WhitsUrlContainerComponent)
+export default connect(mapStateToProps, {getUsesProfile, toggleIsFetching})(WhitsUrlContainerComponent)
 
 
 

@@ -1,4 +1,6 @@
 import {ActionsType, PostType, ProfileType} from "./store";
+import {usersAPI} from "../api/api";
+import {toggleFollowingProgress, unfollowSuccess} from "./users-reducer";
 
 type InitialStateType={
     posts: Array<PostType>,
@@ -64,4 +66,14 @@ export const setUserProfile = (profile:ProfileType) => {
         type: 'SET-USER-PROFILE',
         profile: profile
     } as const
+}
+
+export const getUsesProfile=(userId:number)=>{
+
+    return (dispatch: (action: ActionsType) => void) => {
+        usersAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+            })
+    }
 }

@@ -4,7 +4,7 @@ import MyPostsContainer from "./My-Posts/MyPostsContainer";
 import {ProfileType} from "../../redux/store";
 
 interface ProfileProps {
-    setUserProfile: (profile:ProfileType) => void
+    getUsesProfile: (userId:number) => void
     profile: ProfileType
 }
 
