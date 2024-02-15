@@ -8,6 +8,8 @@ interface ProfileProps {
     profile: ProfileType
 }
 
+
+
 const Profile =(props:ProfileProps)=> {
     return (
         <div>

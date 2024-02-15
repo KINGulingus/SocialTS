@@ -5,7 +5,7 @@ import {ProfileType, RootStateType} from "../../redux/store";
 import {getUsesProfile} from "../../redux/profile-reducer";
 import {toggleIsFetching} from "../../redux/users-reducer";
 import {RootState} from "../../redux/redux-store";
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 
 interface MapStatePropsType {
     profile: ProfileType
@@ -14,6 +14,7 @@ interface MapStatePropsType {
             userId: number;
         };
     }
+    isAuth:boolean
    ;
 }
 
@@ -45,7 +46,7 @@ class ProfileContainer extends React.Component<ProfileProps, RootStateType> {
     }
 
     render() {
-        debugger
+        if (!this.props.isAuth) return <Navigate to={'/login'} />
         return <>
             <div>
                 <Profile {...this.props}/>
@@ -58,7 +59,8 @@ class ProfileContainer extends React.Component<ProfileProps, RootStateType> {
 
 const mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
-        profile: state.profileReducer.profile
+        profile: state.profileReducer.profile,
+        isAuth:state.authReducer.isAuth
     } as MapStatePropsType
 }
 const WhitsUrlContainerComponent = withRouter(ProfileContainer)
